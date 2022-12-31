@@ -1,0 +1,29 @@
+<!-- Aqui sera la vista para listar los Karts del Piloto -->
+<div class="row">
+    {{#each karts}}
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title d-flex justify-content-between align-items-center">
+                    {{categoria}} <a href="/karts/edit/{{_id}}"><i class="fa-solid fa-pen-to-square"></i></i></a>
+                </h4>
+                <h4 class="card-title">
+                    {{numeroKart}}
+                </h4>
+                <p>{{descripcion}}</p>
+                <button class="btn btn-danger btn-block btn-sm ">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card mx-auto">
+        <div class="card-body">
+            <p class="lead">No Ha Registrado Ningun Kart Aun</p>
+            <a href="/kart/add" class="btn btn-success btn-block">Registra uno</a>
+
+        </div>
+    </div>
+    {{/each}}
+</div>
