@@ -21,6 +21,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "eslint": "^8.33.0",
     "nodemon": "^2.0.20"
   }
 }
