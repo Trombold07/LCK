@@ -5,10 +5,14 @@ const path = require('path');                                           // modul
 const exphbs = require('express-handlebars');                           // modulo para express-handlebars
 const methodOverride = require('method-override');                      // modulo para manejar inputs extra como put y delete
 const session =require('express-session');                              // modulo para maneajr sessiones
+const flash = require('connect-flash');
+const passport = require('passport');
+
 
 //inicializacion de variales
 const app = express();
 require('./database');                                                  // Se Requiere e inicializa la conexion a la BD
+require('./config/passport');                                           // Se inicializa el modulo de autenticacion de passport
 
 // Setting donde nestaran todas las configuraciones
 app.set('port', process.env.PORT  || 5000);                             // se configura el puerto a usar si obtiene uno de la nube lo toma caso contrario se usa el 5000
@@ -32,7 +36,19 @@ app.use(session({                                                       // esto 
 }));
 
 
+app.use(passport.initialize());                                         // se inicializa passport y este siempre debe ir luego del session
+app.use(passport.session());
+
+app.use(flash());                                                       // declaracion de flash para el uso en la pagina para mensajes de alertas este debe ir luego de session y passport
+
 // Global Variables se colocan datos que toda la app requiera
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');                  // Mensaje global de exito
+    res.locals.error_msg = req.flash('error_msg');                      // Mensaje global de error
+    res.locals.error = req.flash('error');                              // por que el mensaje globar de passport para flash se llama error 
+    res.locals.user = req.user || null;                                         // datos del usuario que se logea flash los almacena y podmeos acceder a esos datos
+    next();                                                             // Asegurarse de ejecutar el next() para que pase a las siguientes lineas de codigo
+});
 
 //Routes las rutas del proyecto
 app.use(require('./routes/index'));                                     // Aqui usamos las rutas ya sea de index kart o users

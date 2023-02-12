@@ -11,15 +11,19 @@
                     {{numeroKart}}
                 </h4>
                 <p>{{descripcion}}</p>
-                <button class="btn btn-danger btn-block btn-sm ">
+                <form action="/karts/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn btn-danger btn-block btn-sm" type="submit">
                     Eliminar
                 </button>
+                </form>    
             </div>
         </div>
     </div>
     {{else}}
     <div class="card mx-auto">
         <div class="card-body">
+            <h1>Bienvenido {{user.nombre}}</h1>
             <p class="lead">No Ha Registrado Ningun Kart Aun</p>
             <a href="/kart/add" class="btn btn-success btn-block">Registra uno</a>
 

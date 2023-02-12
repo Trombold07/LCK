@@ -1,0 +1,17 @@
+{{#if error}}
+    {{error}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+{{/if}}
+{{#each errors}}                                                      <!-- Esto es sintaxis de handlebars donde haremos validacion de los errores para desplegarlos  -->
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/each}}
